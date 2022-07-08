@@ -1,5 +1,29 @@
 #include "WidgetsWindow.h"
 
+wxBEGIN_EVENT_TABLE(WidgetsWindow, wxFrame)
+EVT_BUTTON(10000, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10001, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10002, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10003, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10004, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10005, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10006, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10007, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10008, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10009, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10010, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10011, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10012, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10013, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10014, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10015, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10016, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10017, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10018, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10019, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10020, WidgetsWindow::OnButtonClicked)
+wxEND_EVENT_TABLE()
+
 WidgetsWindow::WidgetsWindow() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200, 200), wxSize(515, 790)) {
 	wxFont font(50, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
 	wxFont font2(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
@@ -29,5 +53,14 @@ WidgetsWindow::WidgetsWindow() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoin
 
 	for (int i = 0; i < buttons.size(); ++i) {
 		buttons[i]->SetFont(font2);
+		buttons[i]->SetId(10000 + i);
+		//buttons[i]->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &WidgetsWindow::OnButtonClicked, this);
 	}
+}
+
+void WidgetsWindow::OnButtonClicked(wxCommandEvent& evt) {
+	int index = (evt.GetId() - 10000);
+	TextBox->AppendText(buttons[index]->GetLabel());
+
+	evt.Skip();
 }
