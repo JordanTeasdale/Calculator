@@ -7,6 +7,8 @@ class WidgetsWindow : public wxFrame
 private:
 	std::vector<wxButton*> buttons;
 	wxTextCtrl* TextBox = nullptr;
+	std::vector<std::string> symbols{ "+/-", "c", "Bin", "Hex", "Dec", "7", "8", "9", "%", "4", "5", "6", "/", "1", "2", "3", "X", "0", "=", "+", "-" };
+
 	wxButton* bttnNegator = nullptr;
 	wxButton* bttn0 = nullptr;
 	wxButton* bttn1= nullptr;

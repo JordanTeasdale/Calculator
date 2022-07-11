@@ -1,7 +1,8 @@
 #include "WidgetsWindow.h"
+#include "ButtonFactory.h"
 
 wxBEGIN_EVENT_TABLE(WidgetsWindow, wxFrame)
-EVT_BUTTON(10000, WidgetsWindow::OnButtonClicked)
+/*EVT_BUTTON(10000, WidgetsWindow::OnButtonClicked)
 EVT_BUTTON(10001, WidgetsWindow::OnButtonClicked)
 EVT_BUTTON(10002, WidgetsWindow::OnButtonClicked)
 EVT_BUTTON(10003, WidgetsWindow::OnButtonClicked)
@@ -21,7 +22,7 @@ EVT_BUTTON(10016, WidgetsWindow::OnButtonClicked)
 EVT_BUTTON(10017, WidgetsWindow::OnButtonClicked)
 EVT_BUTTON(10018, WidgetsWindow::OnButtonClicked)
 EVT_BUTTON(10019, WidgetsWindow::OnButtonClicked)
-EVT_BUTTON(10020, WidgetsWindow::OnButtonClicked)
+EVT_BUTTON(10020, WidgetsWindow::OnButtonClicked)*/
 wxEND_EVENT_TABLE()
 
 WidgetsWindow::WidgetsWindow() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200, 200), wxSize(515, 790)) {
@@ -29,7 +30,17 @@ WidgetsWindow::WidgetsWindow() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoin
 	wxFont font2(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
 	TextBox = new wxTextCtrl(this, wxID_ANY, "", wxPoint(125, 0), wxSize(375, 125));
 	TextBox->SetFont(font);
-	buttons.push_back(bttnC = new wxButton(this, wxID_ANY, "+/-", wxPoint(0, 0), wxSize(125, 125)));
+
+	ButtonFactory::CreateButton(this, buttons, symbols[0].c_str(), 0, 0);
+	int indexer = 1;
+	for (int y = 1; y < 6; ++y) {
+		for (int x = 0; x < 4; ++x) {
+			ButtonFactory::CreateButton(this, buttons, symbols[indexer].c_str(), x* 125, y*125);
+			++indexer;
+		}	
+	}
+
+/*
 	buttons.push_back(bttnC = new wxButton(this, wxID_ANY, 'c', wxPoint(0, 125), wxSize(125, 125)));
 	buttons.push_back(bttnBin = new wxButton(this, wxID_ANY, "Bin", wxPoint(125, 125), wxSize(125, 125)));
 	buttons.push_back(bttnHex = new wxButton(this, wxID_ANY, "Hex", wxPoint(250, 125), wxSize(125, 125)));
@@ -50,11 +61,12 @@ WidgetsWindow::WidgetsWindow() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoin
 	buttons.push_back(bttnEquals = new wxButton(this, wxID_ANY, '=', wxPoint(125, 625), wxSize(125, 125)));
 	buttons.push_back(bttnPlus = new wxButton(this, wxID_ANY, '+', wxPoint(250, 625), wxSize(125, 125)));
 	buttons.push_back(bttnMinus = new wxButton(this, wxID_ANY, '-', wxPoint(375, 625), wxSize(125, 125)));
+	*/
 
 	for (int i = 0; i < buttons.size(); ++i) {
 		buttons[i]->SetFont(font2);
 		buttons[i]->SetId(10000 + i);
-		//buttons[i]->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &WidgetsWindow::OnButtonClicked, this);
+		buttons[i]->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &WidgetsWindow::OnButtonClicked, this);
 	}
 }
 
