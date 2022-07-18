@@ -1,5 +1,6 @@
 #include "WidgetsWindow.h"
 #include "ButtonFactory.h"
+#include "CalculatorProcessor.h"
 
 wxBEGIN_EVENT_TABLE(WidgetsWindow, wxFrame)
 /*EVT_BUTTON(10000, WidgetsWindow::OnButtonClicked)
@@ -26,7 +27,7 @@ EVT_BUTTON(10020, WidgetsWindow::OnButtonClicked)*/
 wxEND_EVENT_TABLE()
 
 WidgetsWindow::WidgetsWindow() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoint(200, 200), wxSize(515, 790)) {
-	wxFont font(50, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
+	wxFont font(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
 	wxFont font2(24, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD, false);
 	TextBox = new wxTextCtrl(this, wxID_ANY, "", wxPoint(125, 0), wxSize(375, 125));
 	TextBox->SetFont(font);
@@ -63,7 +64,7 @@ WidgetsWindow::WidgetsWindow() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoin
 	buttons.push_back(bttnMinus = new wxButton(this, wxID_ANY, '-', wxPoint(375, 625), wxSize(125, 125)));
 	*/
 
-	for (int i = 0; i < buttons.size(); ++i) {
+	for (size_t i = 0; i < buttons.size(); ++i) {
 		buttons[i]->SetFont(font2);
 		buttons[i]->SetId(10000 + i);
 		buttons[i]->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &WidgetsWindow::OnButtonClicked, this);
@@ -72,7 +73,8 @@ WidgetsWindow::WidgetsWindow() : wxFrame(nullptr, wxID_ANY, "Calculator", wxPoin
 
 void WidgetsWindow::OnButtonClicked(wxCommandEvent& evt) {
 	int index = (evt.GetId() - 10000);
-	TextBox->AppendText(buttons[index]->GetLabel());
+	CalculatorProcessor::GetInstance()->ProcessInput((std::string)buttons[index]->GetLabel(), TextBox);
+	//TextBox->AppendText(buttons[index]->GetLabel());
 
 	evt.Skip();
 }
