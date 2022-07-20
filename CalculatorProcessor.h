@@ -9,8 +9,7 @@ private:
 	static CalculatorProcessor* instance;
 	CalculatorProcessor() {}
 	int GetButtonType(std::string label);
-	std::string ToBinaryString(int number);
-	std::string ToHexString(int number);
+	
 	char oper = NULL;
 	double firstNum = 0;
 	double currentNum = 0;
@@ -25,5 +24,8 @@ public:
 
 	CalculatorProcessor(CalculatorProcessor& other) = delete;
 	void operator=(CalculatorProcessor& other) = delete;
+
+	std::string ToBinaryString(int number);
+	std::string ToHexString(int number);
 };
 
